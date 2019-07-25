@@ -13,26 +13,29 @@ public class Book {
     private Long id;
     private String title;
     private String isbn;
-    private String author;
+
+    @OneToOne
+    private Publisher publisher;
 
     @ManyToMany
     @JoinTable(name = "author_books", joinColumns = @JoinColumn(name = "book_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
+
     public Book() {
     }
 
-    public Book(String title, String isbn, String author) {
+    public Book(String title, String isbn, Publisher publisher) {
         this.title = title;
         this.isbn = isbn;
-        this.author = author;
+        this.publisher = publisher;
     }
 
-    public Book(String title, String isbn, String author, Set<Author> authors) {
+    public Book(String title, String isbn, Publisher publisher, Set<Author> authors) {
         this.title = title;
         this.isbn = isbn;
-        this.author = author;
+        this.publisher = publisher;
         this.authors = authors;
     }
 
@@ -60,12 +63,12 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getAuthor() {
-        return author;
+    public Publisher getPublisher() {
+        return publisher;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setPublisher(Publisher author) {
+        this.publisher = author;
     }
 
     public Set<Author> getAuthors() {
@@ -96,7 +99,7 @@ public class Book {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", author='" + author + '\'' +
+                ", author='" + publisher + '\'' +
                 ", authors=" + authors +
                 '}';
     }
